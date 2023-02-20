@@ -4,7 +4,7 @@ import getWeb3 from './getWeb3';
 import { useEffect, useState , useContext} from 'react';
 import { Web3Context } from './context/web3Context';
 
-import Dashboard from './dashboard';
+import Dashboard from './Dashboard';
 import {
   createBrowserRouter,
   RouterProvider,
