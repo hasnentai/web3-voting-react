@@ -5,10 +5,8 @@ import SideMenu from "./components/SideMenu";
 import Header from "./components/Header";
 
 const DashBoard = () =>{
-    const web3 = useContext(Web3Context);
-    useEffect(()=>{
-        console.log(web3,Ballot.abi)
-    })
+   
+   
     return (<>
         <main class="relative h-screen overflow-hidden bg-gray-100 dark:bg-gray-800 ">
             <div class="flex items-start justify-between">

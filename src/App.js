@@ -21,15 +21,33 @@ function App() {
   ]);
   const [web3, setWeb3] = useState(null);
   useEffect(() => {
+    
     const getWeb3Instance = async () => {
-      let account = await window.ethereum.request({ method: 'eth_requestAccounts' });
-      setWeb3({account:account[0]})
-      window.ethereum.on("accountsChanged", function (accounts) {
-        setWeb3({account:accounts[0]});
-      });
+      
+      
+      let accounts = await getAccounts();
+    
+     
+      setWeb3({...web3,account:accounts[0]})
+     
     };
 
-    getWeb3Instance();
+    window.ethereum.on("accountsChanged", function (accounts) {
+      setWeb3({account:accounts[0]});
+    });
+
+    const getAccounts = async () =>{
+      let _web3 = await getWeb3(1);
+      let accounts = await _web3.eth.getAccounts();
+      console.log(accounts)
+      setWeb3({...web3,account:accounts[0],..._web3})
+      return accounts
+    }
+    getAccounts(); 
+
+    
+
+    setWeb3({connectWallet:getWeb3Instance});
 
   }, []);
 

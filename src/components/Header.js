@@ -6,8 +6,17 @@ import Ballot from "../abi/Ballot.json"
 const Header = () => {
     const web3 = useContext(Web3Context);
     useEffect(() => {
+
+        const getProposal = async() =>{
+            let proposals = await contract.methods.chairperson().call();
+            //let propsalsName = web3.utils.hexToAscii(proposals.name);
+            console.log(proposals);
+        }
         
-        console.log(web3, Ballot.abi)
+       let contract = new web3.eth.Contract(Ballot.abi,"0x12651B7d898fdd450763B4af64A25Cb38cD7bDaB");
+       console.log(contract);
+       getProposal();
+       
     })
     return (<header class="z-40 items-center w-full h-16 bg-white shadow-lg dark:bg-gray-700 rounded-2xl">
         <div class="relative z-20 flex flex-col justify-center h-full px-3 mx-auto flex-center">
@@ -53,7 +62,7 @@ const Header = () => {
     }
 
     function connectWalletButton() {
-        return <div class="relative flex items-center justify-end w-1/4 p-1   sm:mr-0 sm:right-auto">
+        return <div class="relative flex items-center justify-end w-1/4 p-1   sm:mr-0 sm:right-auto" onClick={()=>web3.connectWallet()}>
 
             <a href="#_" class="relative inline-flex items-center justify-center inline-block p-4 px-5 py-3 overflow-hidden font-medium text-indigo-600 rounded-lg shadow-2xl group">
                 <span class="absolute top-0 left-0 w-40 h-40 -mt-10 -ml-3 transition-all duration-700 bg-red-500 rounded-full blur-md ease"></span>
