@@ -22,14 +22,11 @@ function App() {
   const [web3, setWeb3] = useState(null);
   useEffect(() => {
     const getWeb3Instance = async () => {
-      const provider = await getWeb3(1);
-      const ethereum = window.ethereum;
-      if (ethereum) {
-        setWeb3({ provider: provider, address: window.ethereum.selectedAddress });
-        ethereum.on("accountsChanged", function (accounts) {
-          setWeb3({ provider: provider, address: accounts[0] });
-        });
-      }
+      let account = await window.ethereum.request({ method: 'eth_requestAccounts' });
+      setWeb3({account:account[0]})
+      window.ethereum.on("accountsChanged", function (accounts) {
+        setWeb3({account:accounts[0]});
+      });
     };
 
     getWeb3Instance();

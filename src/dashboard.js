@@ -16,7 +16,7 @@ const DashBoard = () =>{
                     <SideMenu/>
                 </div>
                 <div class="flex flex-col w-full pl-0 md:p-4 md:space-y-4">
-                    <Header/>
+                    <Header />
                     </div>
                 </div>
             </main>
