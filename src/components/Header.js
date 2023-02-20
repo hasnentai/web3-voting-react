@@ -26,7 +26,7 @@ const Header = () =>{
                 </div>
                 <div class="relative flex items-center justify-end w-1/4 p-1 ml-5 mr-4 sm:mr-0 sm:right-auto">
                     <a href="#" class="relative block">
-                        <img alt="profil" src="/images/person/1.jpg" class="mx-auto object-cover rounded-full h-10 w-10 "/>
+                        <img alt="profile" src="https://avatars.dicebear.com/api/identicon/0x0623983eFD85F1c43078C49B967b8439120470aB.svg" class="mx-auto object-cover rounded-full h-10 w-10 border-2"/>
                     </a>
                 </div>
             </div>
