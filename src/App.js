@@ -3,7 +3,8 @@ import getWeb3 from "./getWeb3";
 import { useEffect, useState, useContext } from "react";
 import { Web3Context } from "./context/web3Context";
 import Ballot from "./abi/Ballot.json";
-
+import store from "./redux/store";
+import { Provider } from "react-redux";
 import Dashboard from "./dashboard";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
@@ -31,10 +32,10 @@ function App() {
       let contract;
       contract = new _web3.eth.Contract(
         Ballot.abi,
-        "0x9b17E48781a83900d7E74971658D4bC8246F6Bb5"
+        "0x1A46C17Ae5Eb0c348845ca8C2050554E76E7CAbA"
       );
 
-      setWeb3({ ...web3, account: accounts[0], ..._web3, ballot: contract });
+      setWeb3({ ...web3, account: accounts[1], ..._web3, ballot: contract });
       return accounts;
     };
     getAccounts();
@@ -43,9 +44,11 @@ function App() {
   }, []);
 
   return (
-    <Web3Context.Provider value={web3}>
-      <RouterProvider router={router} />
-    </Web3Context.Provider>
+    <Provider store={store}>
+      <Web3Context.Provider value={web3}>
+        <RouterProvider router={router} />
+      </Web3Context.Provider>
+    </Provider>
   );
 }
 

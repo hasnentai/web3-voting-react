@@ -5,13 +5,13 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function DropDown() {
-  const [proposal, setProposal] = useState("Select Your Proposal");
+export default function DropDown(prop) {
+  console.log(prop);
   return (
     <Menu as="div" className="relative inline-block text-left">
       <div>
         <Menu.Button className="inline-flex w-full justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-100">
-          {proposal}
+          {prop.proposal}
           <svg
             class="-mr-1 ml-2 h-5 w-5"
             viewBox="0 0 20 20"
@@ -41,7 +41,7 @@ export default function DropDown() {
             <Menu.Item>
               {({ active }) => (
                 <a
-                  onClick={() => setProposal("BJS")}
+                  onClick={() => prop.chooseProposal("BJS")}
                   className={classNames(
                     active ? "bg-gray-100 text-gray-900" : "text-gray-700",
                     "block px-4 py-2 text-sm"
@@ -54,7 +54,7 @@ export default function DropDown() {
             <Menu.Item>
               {({ active }) => (
                 <a
-                  onClick={() => setProposal("CJS")}
+                  onClick={() => prop.chooseProposal("CJS")}
                   className={classNames(
                     active ? "bg-gray-100 text-gray-900" : "text-gray-700",
                     "block px-4 py-2 text-sm"

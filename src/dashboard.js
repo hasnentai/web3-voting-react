@@ -7,14 +7,20 @@ import VoteCastComponent from "./components/VoteCast";
 import Voters from "./components/Voters";
 import getChairmanAddress from "./service/getChairmanAddress";
 import { Web3Context } from "./context/web3Context";
+import { getProposal } from "./service/castVote";
+import { useSelector } from "react-redux";
 
 const DashBoard = () => {
   let web3 = useContext(Web3Context);
+  const bjsValue = useSelector((state) => state.data.bjsValue);
+  const cjsValue = useSelector((state) => state.data.cjsValue);
+  debugger;
   let [chairman, setChairman] = useState();
   useEffect(() => {
     const fetchChairmanAddress = async () => {
       let acc = await getChairmanAddress(web3?.ballot);
       setChairman(acc);
+      getProposal(web3?.ballot);
     };
     fetchChairmanAddress();
   }, [web3]);
@@ -31,7 +37,7 @@ const DashBoard = () => {
 
             <div class="h-screen pt-2 pb-24 pl-2 pr-2 overflow-auto md:pt-0 md:pr-0 md:pl-0">
               <div className="flex">
-                <ResultCard />
+                <ResultCard cjsValue={cjsValue} bjsValue={bjsValue} />
 
                 {chairman === web3?.account ? (
                   <Voters />

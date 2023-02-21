@@ -1,6 +1,32 @@
+import { useContext, useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { Web3Context } from "../context/web3Context";
+import { setBJSData, setCJSData } from "../redux/slice";
+import castVote, { getProposal } from "../service/castVote";
 import DropDown from "./DropDown";
 
 function VoteCastComponent({}) {
+  let web3 = useContext(Web3Context);
+  const [account, setAccounts] = useState();
+  const dispatch = useDispatch();
+  useEffect(() => {
+    const _getAccounts = async () => {
+      let account = await web3?.eth?.getAccounts();
+      console.log(web3);
+
+      setAccounts(account);
+      let count = await getProposal(web3?.ballot);
+      console.log(count);
+      debugger;
+      dispatch(setCJSData(count["cjs"]));
+      dispatch(setBJSData(count["bjs"]));
+    };
+    _getAccounts();
+  }, [web3]);
+  const [proposal, setProposal] = useState("Select Your Proposal");
+  const chooseProposal = (name) => {
+    setProposal(name);
+  };
   return (
     <div class="w-full sm:w-1/2 xl:w-1/2">
       <div class="mx-0 mb-4  xl:mr-2">
@@ -19,10 +45,19 @@ function VoteCastComponent({}) {
           </p>
           <div className="m-4">
             {" "}
-            <DropDown />
+            <DropDown chooseProposal={chooseProposal} proposal={proposal} />
           </div>
 
-          <div class="relative flex items-center p-4  sm:mr-0 sm:right-auto">
+          <div
+            class="relative flex items-center p-4  sm:mr-0 sm:right-auto"
+            onClick={async () => {
+              await castVote(web3?.ballot, account[7], proposal);
+              let count = await getProposal(web3?.ballot);
+              console.log(count);
+              dispatch(setCJSData(count["cjs"]));
+              dispatch(setBJSData(count["bjs"]));
+            }}
+          >
             <a
               href="#_"
               class="relative inline-flex items-center justify-center inline-block p-4 px-5 py-3 overflow-hidden font-medium text-indigo-600 rounded-lg shadow-2xl group"
